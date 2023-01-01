@@ -1,0 +1,32 @@
+name: run Fii_Dii_iitian.py
+
+on:
+  workflow_dispatch
+  # schedule:
+  #   - cron: "0 5 * * MON,WED" # Runs at 10am for Monday and Wednesday
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+        # with:
+        #   ref: RunningGitHubPipelinWithOutWritingDataToGoogleSheet
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9" # install the python version needed
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          python3 -m pip install numpy
+          pip3 install pytz
+          pip3 install selenium
+          pip3 install chrome
+          pip install schedule
+
+      - name: execute py script # run main.py
+        run: python StockScreener.py
